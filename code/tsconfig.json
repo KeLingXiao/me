@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "types": [ "node" ],
-    "target": "esnext", 
-    "module": "NodeNext", 
+    "types": ["node"],
+    "target": "esnext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -11,6 +11,6 @@
     "skipLibCheck": true,
     // 生产 sourcemap
     "sourceMap": true,
-    "allowImportingTsExtensions": true
-  }
+    "allowImportingTsExtensions": true,
+  },
 }

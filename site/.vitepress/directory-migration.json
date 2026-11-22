@@ -1,0 +1,314 @@
+{
+  "mappings": [
+    [
+      "AIAgent/Agent应用开发/LLM原理.md",
+      "AI应用/模型基础/LLM原理.md"
+    ],
+    [
+      "AIAgent/Agent应用开发/专业词汇.md",
+      "AI应用/模型基础/专业词汇.md"
+    ],
+    [
+      "数据结构与算法/8.sort_and_find",
+      "计算机基础/数据结构与算法/排序与查找"
+    ],
+    [
+      "数据结构与算法/LeetCode/1.两数之和",
+      "计算机基础/数据结构与算法/LeetCode/两数之和"
+    ],
+    [
+      "前端/html-css-js-ts/HTML",
+      "开发技术/前端/HTML"
+    ],
+    [
+      "前端/html-css-js-ts/CSS",
+      "开发技术/前端/CSS"
+    ],
+    [
+      "语言语法/NodeJS及生态/NestJS",
+      "开发技术/后端/框架/NestJS"
+    ],
+    [
+      "语言语法/NodeJS及生态/NodeJS",
+      "开发技术/Node.js"
+    ],
+    [
+      "前端/html-css-js-ts/JS",
+      "编程语言/JavaScript"
+    ],
+    [
+      "前端/html-css-js-ts/TS",
+      "编程语言/TypeScript"
+    ],
+    [
+      "数据结构与算法/2.linklist",
+      "计算机基础/数据结构与算法/链表"
+    ],
+    [
+      "AIAgent/VibeCoding",
+      "AI应用/VibeCoding"
+    ],
+    [
+      "前端/html-css-js-ts",
+      "开发技术/前端/资源"
+    ],
+    [
+      "AIAgent/Agent应用开发",
+      "AI应用/Agent开发"
+    ],
+    [
+      "数据结构与算法/0.复杂度分析",
+      "计算机基础/数据结构与算法/复杂度分析"
+    ],
+    [
+      "数据结构与算法/1.array",
+      "计算机基础/数据结构与算法/数组"
+    ],
+    [
+      "数据结构与算法/3.stack",
+      "计算机基础/数据结构与算法/栈"
+    ],
+    [
+      "数据结构与算法/4.queue",
+      "计算机基础/数据结构与算法/队列"
+    ],
+    [
+      "数据结构与算法/5.tree",
+      "计算机基础/数据结构与算法/树"
+    ],
+    [
+      "数据结构与算法/6.heap",
+      "计算机基础/数据结构与算法/堆"
+    ],
+    [
+      "语言语法/NodeJS及生态",
+      "开发技术/Node.js/生态"
+    ],
+    [
+      "语言语法/Python",
+      "编程语言/Python"
+    ],
+    [
+      "语言语法/Java",
+      "编程语言/Java"
+    ],
+    [
+      "语言语法/Rust",
+      "编程语言/Rust"
+    ],
+    [
+      "后端/Docker",
+      "工程能力/部署与交付/Docker"
+    ],
+    [
+      "工程实践/设计模式",
+      "工程能力/设计模式"
+    ],
+    [
+      "工程实践/系统设计",
+      "工程能力/系统设计"
+    ],
+    [
+      "工程实践/CICD",
+      "工程能力/部署与交付/CI-CD"
+    ],
+    [
+      "工程实践/解决方案",
+      "工程能力/项目实践"
+    ],
+    [
+      "语言语法/CPP",
+      "编程语言/C++"
+    ],
+    [
+      "数据结构与算法",
+      "计算机基础/数据结构与算法"
+    ],
+    [
+      "前端/前端框架",
+      "开发技术/前端/框架"
+    ],
+    [
+      "后端/调试方案",
+      "工程能力/测试与调试"
+    ],
+    [
+      "AIAgent",
+      "AI应用"
+    ],
+    [
+      "前端/工程化",
+      "开发技术/前端/工程化"
+    ],
+    [
+      "后端/数据库",
+      "开发技术/数据库"
+    ],
+    [
+      "操作系统",
+      "计算机基础/操作系统"
+    ],
+    [
+      "工程实践",
+      "工程能力"
+    ],
+    [
+      "网络",
+      "计算机基础/计算机网络"
+    ],
+    [
+      "前端",
+      "开发技术/前端"
+    ],
+    [
+      "后端",
+      "开发技术/后端"
+    ]
+  ],
+  "files": {
+    "数据结构与算法/1.array/1.svg": "计算机基础/数据结构与算法/数组/1.svg",
+    "数据结构与算法/1.array/array.md": "计算机基础/数据结构与算法/数组/array.md",
+    "数据结构与算法/2.linklist/README.md": "计算机基础/数据结构与算法/链表/README.md",
+    "数据结构与算法/images/2.linklisted-memory.png": "计算机基础/数据结构与算法/images/2.linklisted-memory.png",
+    "数据结构与算法/LeetCode/1.两数之和/README.md": "计算机基础/数据结构与算法/LeetCode/两数之和/README.md",
+    "数据结构与算法/LeetCode/1.两数之和/twoSum.cpp": "计算机基础/数据结构与算法/LeetCode/两数之和/twoSum.cpp",
+    "数据结构与算法/LeetCode/移除元素/README.md": "计算机基础/数据结构与算法/LeetCode/移除元素/README.md",
+    "数据结构与算法/README.md": "计算机基础/数据结构与算法/README.md",
+    "网络/HTTP.md": "计算机基础/计算机网络/HTTP.md",
+    "网络/images/1.svg": "计算机基础/计算机网络/images/1.svg",
+    "网络/images/2.数据包封装过程动画.gif": "计算机基础/计算机网络/images/2.数据包封装过程动画.gif",
+    "网络/images/3.数据包解封装与网页呈现动画.gif": "计算机基础/计算机网络/images/3.数据包解封装与网页呈现动画.gif",
+    "网络/images/4.svg": "计算机基础/计算机网络/images/4.svg",
+    "网络/images/5.png": "计算机基础/计算机网络/images/5.png",
+    "网络/images/6.svg": "计算机基础/计算机网络/images/6.svg",
+    "网络/images/7.webp": "计算机基础/计算机网络/images/7.webp",
+    "网络/images/HTTP.md": "计算机基础/计算机网络/images/HTTP.md",
+    "网络/Socket.md": "计算机基础/计算机网络/Socket.md",
+    "网络/TCP-IP.md": "计算机基础/计算机网络/TCP-IP.md",
+    "网络/URL到页面全流程.md": "计算机基础/计算机网络/URL到页面全流程.md",
+    "前端/html-css-js-ts/CSS/README.md": "开发技术/前端/CSS/README.md",
+    "前端/html-css-js-ts/images/CSS/1.RenderTree.png": "开发技术/前端/资源/images/CSS/1.RenderTree.png",
+    "前端/html-css-js-ts/JS/ES新标准.md": "编程语言/JavaScript/ES新标准.md",
+    "前端/html-css-js-ts/JS/Symbol.md": "编程语言/JavaScript/Symbol.md",
+    "前端/html-css-js-ts/JS/作用域与闭包.md": "编程语言/JavaScript/作用域与闭包.md",
+    "前端/html-css-js-ts/JS/原型与原型链.md": "编程语言/JavaScript/原型与原型链.md",
+    "前端/html-css-js-ts/JS/异步编程.md": "编程语言/JavaScript/异步编程.md",
+    "前端/html-css-js-ts/JS/数据类型.md": "编程语言/JavaScript/数据类型.md",
+    "前端/html-css-js-ts/JS/深拷贝.md": "编程语言/JavaScript/深拷贝.md",
+    "前端/html-css-js-ts/TS/pick.ts": "编程语言/TypeScript/pick.ts",
+    "前端/html-css-js-ts/TS/README.md": "编程语言/TypeScript/README.md",
+    "前端/前端框架/images/1.DIFF.png": "开发技术/前端/框架/images/1.DIFF.png",
+    "前端/前端框架/react/README.md": "开发技术/前端/框架/react/README.md",
+    "前端/前端框架/README.md": "开发技术/前端/框架/README.md",
+    "前端/前端框架/vue/DIFF.md": "开发技术/前端/框架/vue/DIFF.md",
+    "前端/前端框架/vue/README.md": "开发技术/前端/框架/vue/README.md",
+    "前端/前端框架/vue/响应式.md": "开发技术/前端/框架/vue/响应式.md",
+    "前端/前端框架/vue/方法篇.md": "开发技术/前端/框架/vue/方法篇.md",
+    "前端/前端框架/vue/组件篇.md": "开发技术/前端/框架/vue/组件篇.md",
+    "前端/工程化/README.md": "开发技术/前端/工程化/README.md",
+    "语言语法/NodeJS及生态/images/nodejs/1.JavaScript-env.png": "开发技术/Node.js/生态/images/nodejs/1.JavaScript-env.png",
+    "语言语法/NodeJS及生态/images/nodejs/10.debugger.png": "开发技术/Node.js/生态/images/nodejs/10.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/11.debugger.png": "开发技术/Node.js/生态/images/nodejs/11.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/12.debugger.png": "开发技术/Node.js/生态/images/nodejs/12.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/13.sourcemap.png": "开发技术/Node.js/生态/images/nodejs/13.sourcemap.png",
+    "语言语法/NodeJS及生态/images/nodejs/2.JavaScript-modules.png": "开发技术/Node.js/生态/images/nodejs/2.JavaScript-modules.png",
+    "语言语法/NodeJS及生态/images/nodejs/3.debugger.png": "开发技术/Node.js/生态/images/nodejs/3.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/4.debugger.png": "开发技术/Node.js/生态/images/nodejs/4.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/5.debugger.png": "开发技术/Node.js/生态/images/nodejs/5.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/6.debugger.png": "开发技术/Node.js/生态/images/nodejs/6.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/7.debugger.png": "开发技术/Node.js/生态/images/nodejs/7.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/8.debugger.png": "开发技术/Node.js/生态/images/nodejs/8.debugger.png",
+    "语言语法/NodeJS及生态/images/nodejs/9.debugger.png": "开发技术/Node.js/生态/images/nodejs/9.debugger.png",
+    "语言语法/NodeJS及生态/NestJS/DI与IOC.md": "开发技术/后端/框架/NestJS/DI与IOC.md",
+    "语言语法/NodeJS及生态/NodeJS/Libuv.md": "开发技术/Node.js/Libuv.md",
+    "语言语法/NodeJS及生态/NodeJS/Node与JS.md": "开发技术/Node.js/Node与JS.md",
+    "语言语法/NodeJS及生态/NodeJS/README.md": "开发技术/Node.js/README.md",
+    "语言语法/NodeJS及生态/NodeJS/sourcemap.md": "开发技术/Node.js/sourcemap.md",
+    "语言语法/NodeJS及生态/NodeJS/内置包.md": "开发技术/Node.js/内置包.md",
+    "语言语法/NodeJS及生态/NodeJS/包管理器.md": "开发技术/Node.js/包管理器.md",
+    "语言语法/NodeJS及生态/NodeJS/异步编程.md": "开发技术/Node.js/异步编程.md",
+    "语言语法/NodeJS及生态/NodeJS/流.md": "开发技术/Node.js/流.md",
+    "语言语法/NodeJS及生态/NodeJS/线程.md": "开发技术/Node.js/线程.md",
+    "语言语法/Python/1.语法基础.md": "编程语言/Python/1.语法基础.md",
+    "后端/Docker/README.md": "工程能力/部署与交付/Docker/README.md",
+    "后端/images/1.DockerEngine.png": "开发技术/后端/images/1.DockerEngine.png",
+    "后端/数据库/MySQL/1.DB通识.md": "开发技术/数据库/MySQL/1.DB通识.md",
+    "后端/数据库/MySQL/images/1.databaseStruct.png": "开发技术/数据库/MySQL/images/1.databaseStruct.png",
+    "后端/数据库/MySQL/README.md": "开发技术/数据库/MySQL/README.md",
+    "后端/数据库/MySQL/数据检索.md": "开发技术/数据库/MySQL/数据检索.md",
+    "工程实践/解决方案/images/multirepo-monorepo/manager.png": "工程能力/项目实践/images/multirepo-monorepo/manager.png",
+    "工程实践/解决方案/images/multirepo-monorepo/multirepo-monorepo.png": "工程能力/项目实践/images/multirepo-monorepo/multirepo-monorepo.png",
+    "工程实践/解决方案/images/multirepo-monorepo/packages.png": "工程能力/项目实践/images/multirepo-monorepo/packages.png",
+    "工程实践/解决方案/Mutirepo和Monorepo/README.md": "工程能力/项目实践/Mutirepo和Monorepo/README.md",
+    "工程实践/解决方案/RBAC-ACL权限管理/README.md": "工程能力/项目实践/RBAC-ACL权限管理/README.md",
+    "工程实践/解决方案/Websocket/20261020105321.png": "工程能力/项目实践/Websocket/20261020105321.png",
+    "工程实践/解决方案/Websocket/20261020132045.png": "工程能力/项目实践/Websocket/20261020132045.png",
+    "工程实践/解决方案/Websocket/websocket.md": "工程能力/项目实践/Websocket/websocket.md",
+    "工程实践/解决方案/可视化方案/README.md": "工程能力/项目实践/可视化方案/README.md",
+    "工程实践/解决方案/缓存方案/README.md": "工程能力/项目实践/缓存方案/README.md",
+    "工程实践/解决方案/视频转码/README.md": "工程能力/项目实践/视频转码/README.md",
+    "工程实践/解决方案/骨架屏/README.md": "工程能力/项目实践/骨架屏/README.md",
+    "工程实践/解决方案/高质量代码/README.md": "工程能力/项目实践/高质量代码/README.md",
+    "工程实践/设计模式/1.代码质量评判方法论.md": "工程能力/设计模式/1.代码质量评判方法论.md",
+    "工程实践/设计模式/2.单例模式.md": "工程能力/设计模式/2.单例模式.md",
+    "工程实践/设计模式/3.工厂模式.md": "工程能力/设计模式/3.工厂模式.md",
+    "工程实践/设计模式/4.装饰器模式.md": "工程能力/设计模式/4.装饰器模式.md",
+    "工程实践/设计模式/images/1.Edgar_Dale's_cone_of_learning.png": "工程能力/设计模式/images/1.Edgar_Dale's_cone_of_learning.png",
+    "工程实践/设计模式/images/2.svg": "工程能力/设计模式/images/2.svg",
+    "工程实践/设计模式/images/cone-of-learning.png": "工程能力/设计模式/images/cone-of-learning.png",
+    "工程实践/设计模式/README.md": "工程能力/设计模式/README.md",
+    "工程实践/设计模式/中介者模式.md": "工程能力/设计模式/中介者模式.md",
+    "工程实践/设计模式/享元模式.md": "工程能力/设计模式/享元模式.md",
+    "工程实践/设计模式/代理模式.md": "工程能力/设计模式/代理模式.md",
+    "工程实践/设计模式/单例模式.md": "工程能力/设计模式/单例模式.md",
+    "工程实践/设计模式/原型模式.md": "工程能力/设计模式/原型模式.md",
+    "工程实践/设计模式/命令模式.md": "工程能力/设计模式/命令模式.md",
+    "工程实践/设计模式/备忘录模式.md": "工程能力/设计模式/备忘录模式.md",
+    "工程实践/设计模式/外观模式.md": "工程能力/设计模式/外观模式.md",
+    "工程实践/设计模式/工厂方法模式.md": "工程能力/设计模式/工厂方法模式.md",
+    "工程实践/设计模式/建造者模式.md": "工程能力/设计模式/建造者模式.md",
+    "工程实践/设计模式/抽象工厂模式.md": "工程能力/设计模式/抽象工厂模式.md",
+    "工程实践/设计模式/桥接模式.md": "工程能力/设计模式/桥接模式.md",
+    "工程实践/设计模式/模板方法模式.md": "工程能力/设计模式/模板方法模式.md",
+    "工程实践/设计模式/状态模式.md": "工程能力/设计模式/状态模式.md",
+    "工程实践/设计模式/策略模式.md": "工程能力/设计模式/策略模式.md",
+    "工程实践/设计模式/组合模式.md": "工程能力/设计模式/组合模式.md",
+    "工程实践/设计模式/装饰器模式.md": "工程能力/设计模式/装饰器模式.md",
+    "工程实践/设计模式/观察者模式.md": "工程能力/设计模式/观察者模式.md",
+    "工程实践/设计模式/解释器模式.md": "工程能力/设计模式/解释器模式.md",
+    "工程实践/设计模式/访问者模式.md": "工程能力/设计模式/访问者模式.md",
+    "工程实践/设计模式/责任链模式.md": "工程能力/设计模式/责任链模式.md",
+    "工程实践/设计模式/迭代器模式.md": "工程能力/设计模式/迭代器模式.md",
+    "工程实践/设计模式/适配器模式.md": "工程能力/设计模式/适配器模式.md",
+    "AIAgent/Agent应用开发/LangChain.md": "AI应用/Agent开发/LangChain.md",
+    "AIAgent/Agent应用开发/LangGraph.md": "AI应用/Agent开发/LangGraph.md",
+    "AIAgent/Agent应用开发/LLM原理.md": "AI应用/模型基础/LLM原理.md",
+    "AIAgent/Agent应用开发/Memory.md": "AI应用/Agent开发/Memory.md",
+    "AIAgent/Agent应用开发/RAG.md": "AI应用/Agent开发/RAG.md",
+    "AIAgent/Agent应用开发/README.md": "AI应用/Agent开发/README.md",
+    "AIAgent/Agent应用开发/Tool&MCP.md": "AI应用/Agent开发/Tool&MCP.md",
+    "AIAgent/Agent应用开发/专业词汇.md": "AI应用/模型基础/专业词汇.md",
+    "AIAgent/Agent应用开发/基础调用方式.md": "AI应用/Agent开发/基础调用方式.md",
+    "AIAgent/Agent应用开发/实现一个Mini-Agent框架.md": "AI应用/Agent开发/实现一个Mini-Agent框架.md",
+    "AIAgent/images/aiagent/1.png": "AI应用/images/aiagent/1.png",
+    "AIAgent/images/aiagent/10.png": "AI应用/images/aiagent/10.png",
+    "AIAgent/images/aiagent/11.svg": "AI应用/images/aiagent/11.svg",
+    "AIAgent/images/aiagent/12.png": "AI应用/images/aiagent/12.png",
+    "AIAgent/images/aiagent/13.svg": "AI应用/images/aiagent/13.svg",
+    "AIAgent/images/aiagent/14.png": "AI应用/images/aiagent/14.png",
+    "AIAgent/images/aiagent/2.svg": "AI应用/images/aiagent/2.svg",
+    "AIAgent/images/aiagent/3.svg": "AI应用/images/aiagent/3.svg",
+    "AIAgent/images/aiagent/4.svg": "AI应用/images/aiagent/4.svg",
+    "AIAgent/images/aiagent/5.png": "AI应用/images/aiagent/5.png",
+    "AIAgent/images/aiagent/6.MCP连接外部工具调用流程图.png": "AI应用/images/aiagent/6.MCP连接外部工具调用流程图.png",
+    "AIAgent/images/aiagent/7.svg": "AI应用/images/aiagent/7.svg",
+    "AIAgent/images/aiagent/8.svg": "AI应用/images/aiagent/8.svg",
+    "AIAgent/images/aiagent/9.svg": "AI应用/images/aiagent/9.svg",
+    "AIAgent/README.md": "AI应用/README.md",
+    "AIAgent/VibeCoding/1.AI时代.md": "AI应用/VibeCoding/1.AI时代.md",
+    "AIAgent/VibeCoding/1.技巧篇.md": "AI应用/VibeCoding/1.技巧篇.md",
+    "AIAgent/VibeCoding/2.如何阅读大型代码库.md": "AI应用/VibeCoding/2.如何阅读大型代码库.md",
+    "AIAgent/VibeCoding/Harness.md": "AI应用/VibeCoding/Harness.md",
+    "AIAgent/VibeCoding/README.md": "AI应用/VibeCoding/README.md"
+  }
+}

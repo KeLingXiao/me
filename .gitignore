@@ -1,4 +1,5 @@
 _template/*
+/TASK.md
 
 .env
 config.*
@@ -8,3 +9,13 @@ node_modules
 .vscode
 
 dist/
+
+# Local dependency installation workspace and cache
+.math-install/
+.pnpm-store/
+.tmp-config/
+.ci-check/
+
+# Keep the site configuration despite the general config.* exclusion.
+!site/.vitepress/config.mts
+.ci-check/

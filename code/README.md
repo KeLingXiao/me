@@ -22,12 +22,11 @@ pnpm run run nodejs/eventEmitter/index.js
 - `nodejs/fanyi/`：独立的模型翻译工具。在此目录执行 `pnpm install --frozen-lockfile`、`pnpm start`。模型配置见 `fanyi.config.mts`，运行前配置 `.env`。
 - `ai/`：工具调用、MCP、RAG、记忆。独立安装，详见 [AI 示例说明](ai/README.md)。对应文章在 [AI 应用](../AI应用/README.md)。
 - `engineering/Websocket/`：轮询、SSE、WebSocket、Socket.IO，独立安装，详见 [通信示例说明](engineering/Websocket/README.md)。对应文章：[WebSocket](../工程能力/项目实践/Websocket/websocket.md)。
-- `engineering/RBAC/1.React-Auth/`：独立的 Umi / React 权限项目。在此目录执行 `pnpm install --frozen-lockfile`、`pnpm dev`；`pnpm build` 构建。
 - `vue/vue-impl/`：独立的 pnpm workspace。在此目录执行 `pnpm install --frozen-lockfile`、`pnpm dev`，随后通过本地静态服务打开 `test/` 下的 HTML 验证响应式实现。测试页依赖构建输出，不能只打开源码。
 
 ## 依赖边界
 
-根目录只保留 `tsx`、TypeScript、Node 类型、RxJS 和 Source Map。AI、翻译、WebSocket、RBAC、Vue 分别维护自己的 `package.json` 与锁文件，不必为运行简单实验安装模型或前端框架依赖。
+根目录只保留 `tsx`、TypeScript、Node 类型、RxJS 和 Source Map。AI、翻译、WebSocket、Vue 分别维护自己的 `package.json` 与锁文件，不必为运行简单实验安装模型或前端框架依赖。
 
 这里没有新增覆盖所有项目的 workspace，以便按需安装。新增完整项目应自带配置和启动说明；新增纯语言实验可继续使用根工具。
 

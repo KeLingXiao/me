@@ -25,16 +25,16 @@
     2. 每次都需要携带 HTTP Header 消耗流量与 CPU 利用率
 2. 实现代码
 
-- [Server](../../../code/工程实践/Websocket/1.query/app.mts)
-- [Client](../../../code/工程实践/Websocket/1.query/index.html)
+- [Server](../../../code/engineering/Websocket/1.query/app.mts)
+- [Client](../../../code/engineering/Websocket/1.query/index.html)
 
 ### 长轮询
 
 1. 实现: 在请求完成后再次请求 而不是 等待 `N` 秒后请求(客户端发送给服务器后看看是否有新消息若没有则等待, 有新消息才会继续请求 减小带宽和CPU利用率), 保持链接
 2. 实现代码
 
-- [Server](../../../code/工程实践/Websocket/2.long-polling/app.mts)
-- [Client](../../../code/工程实践/Websocket/2.long-polling/index.html)
+- [Server](../../../code/engineering/Websocket/2.long-polling/app.mts)
+- [Client](../../../code/engineering/Websocket/2.long-polling/index.html)
 
 
 
@@ -43,8 +43,8 @@
 1. 实现: 在HTML页面设置一个 `隐藏的ifream` 再将该 ifream src 属性设置为 长连接请求服务端即可推送数据
 2. 代码实现:
 
-- [前端实现](../../../code/工程实践/Websocket/3.ifream/index.html)
-- [后端实现](../../../code/工程实践/Websocket/3.ifream/app.mts)
+- [前端实现](../../../code/engineering/Websocket/3.ifream/index.html)
+- [后端实现](../../../code/engineering/Websocket/3.ifream/app.mts)
 
 
 ### EventSource
@@ -53,8 +53,8 @@
   - 缺陷: 不能跨域
 2. 代码实现
 
-- [前端实现](../../../code/工程实践/Websocket/4.eventSource/index.html)
-- [后端实现](../../../code/工程实践/Websocket/4.eventSource/app.mts)
+- [前端实现](../../../code/engineering/Websocket/4.eventSource/index.html)
+- [后端实现](../../../code/engineering/Websocket/4.eventSource/app.mts)
 
 1. 应用: HMR 的实现原理就是通过 `EventSource`
 
@@ -101,7 +101,7 @@ upgrade: websocket
 ```
 
 4. 实现
-- [后端使用实现](../../../code/工程实践/Websocket/5.ws/index.mts)
+- [后端使用实现](../../../code/engineering/Websocket/5.ws/index.mts)
 
 
 5. 数据帧格式: [RFC 6445 定义 Websocket 协议标准](https://www.rfc-editor.org/info/rfc6455/#section-5.2)

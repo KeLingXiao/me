@@ -19,3 +19,4 @@ dist/
 # Keep the site configuration despite the general config.* exclusion.
 !site/.vitepress/config.mts
 .ci-check/
+.pnpm-local/

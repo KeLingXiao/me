@@ -64,7 +64,7 @@ $$
 
 ![](assets/rag/figure-09.svg)
 
-同时我们也可以自己实现 [余弦相似度](../../code/AIAgent/aiagent/3.rag/1.cosine.ts)
+同时我们也可以自己实现 [余弦相似度](../../code/ai/3.rag/1.cosine.ts)
 注意 数学公式只能计算向量相似度不能理解语义 真正将语义转换为向量的是 Embedding 模型
 ```ts
 const a = [0.92, 0.82, 0.13]
@@ -94,8 +94,8 @@ PDF/Markdown/TXT/Word -> 文档解析与文本清洗 -> Chunking 文本切分 ->
 ![](assets/rag/figure-10.png)
 
 我们直接实现一个 简单 RAG 流程, 这里我们分为 使用 LangChain 版本 和 非 LangChain 版本, 这里提供非LangChain 版本目的是为了让你知道 原始流程是怎么样子的
-[非 LangChain 版本](../../code/AIAgent/aiagent/3.rag/2.rag.mts)
-[LangChain 版本](../../code/AIAgent/aiagent/3.rag/3.rag.ts)
+[非 LangChain 版本](../../code/ai/3.rag/2.rag.mts)
+[LangChain 版本](../../code/ai/3.rag/3.rag.ts)
 
 
 ### 代码拆解
@@ -132,7 +132,7 @@ const openai = new OpenAI({
 ```
 
 文本切分 通过用户传入的 文本 按照 chunkSize 规范 每段文本最多几个 字符, 通过 overlap 来规范 两段文本之间重复字符是多少, **设置 Overlap 就是为了 防止语义切好在 边界中被截断**
-你可以在 这里将代码复制到你的环境中试一试 [Splitter](../../code/AIAgent/aiagent/3.rag/4.splitter.ts)
+你可以在 这里将代码复制到你的环境中试一试 [Splitter](../../code/ai/3.rag/4.splitter.ts)
 ```ts
 function splitText(
   text: string,

@@ -29,10 +29,10 @@ call_api 调用外部 API
 
 我们接下来就来实现一个 简单的 工具调用 + Agent 流程
 首先是 工具定义, 我们这里实现一些常用工具和API调用, 还有 **定义工具/工具注册/配置参数和执行逻辑** 方法我们统一到 `defineTool` 中
-[工具定义](../../code/AIAgent/aiagent/1.tool/3.defineTools.mts)
+[工具定义](../../code/ai/1.tool/3.defineTools.mts)
 
 从 **创建模型/绑定工具/执行循环/处理消息** 让模型调用工具直到回复完毕
-[Agent Loop](../../code/AIAgent/aiagent/1.tool/3.tool.mts)
+[Agent Loop](../../code/ai/1.tool/3.tool.mts)
 
 整体编码流程图
 ![主体流程图](assets/tool-mcp/figure-04.svg)
@@ -72,10 +72,10 @@ MCP 连接外部 Tool 方案, MCP 只是增加了 增加 Tool 发现/连接/调�
 pnpm add @modelcontextprotocol/server @modelcontextprotocol/client zod
 ```
 MCP Server 我们通过 `serveStdio` 定义 该 MCP 是通过 Stdio 进行通信, 通过 `registerTool` 来注册 tool
-[](../../code/AIAgent/aiagent/2.mcp/mcp-server.mts)
+[](../../code/ai/2.mcp/mcp-server.mts)
 
 MCP Client 位于我们AIAgent应用内部用 `StdioClientTransport` 来通过 Stdio 进行连接进程间 MCPServer, 连接成功后即可查看可用工具列表, 最后通过 LLM 选用 工具调用即可
-[](../../code/AIAgent/aiagent/2.mcp/mcp-client.mts)
+[](../../code/ai/2.mcp/mcp-client.mts)
 
 5. MCP 协议: 底层协议通过 JSON-RPC 2.0 表达请求与响应
 [JSON-RPC 2.0](https://blog.modelcontextprotocol.io/posts/2026-07-28/?utm_source=chatgpt.com)
@@ -110,7 +110,7 @@ try {
 }
 ```
 实现完整版本也提供出来供你参考
-![](../../code/AIAgent/aiagent/2.mcp/2.mcp.ts)
+![](../../code/ai/2.mcp/2.mcp.ts)
 
 
 ## 总结一下

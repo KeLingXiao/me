@@ -1,5 +1,8 @@
 {
+  "include": ["javascript/**/*.ts", "nodejs/**/*.ts", "nodejs/**/*.mts"],
+  "exclude": ["node_modules", "dist", "nodejs/fanyi"],
   "compilerOptions": {
+    "noEmit": true,
     "outDir": "dist",
     "types": ["node"],
     "target": "esnext",

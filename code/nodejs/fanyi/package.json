@@ -1,0 +1,20 @@
+{
+  "name": "translation-example",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "start": "tsx --env-file-if-exists=../../.env --env-file-if-exists=.env index.mts"
+  },
+  "dependencies": {
+    "@langchain/core": "^1.2.18",
+    "@langchain/openai": "^1.6.2",
+    "dotenv": "^18.0.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "@types/node": "^26.6.4"
+  }
+}

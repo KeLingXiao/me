@@ -1,0 +1,37 @@
+{
+  "name": "ai-examples",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "run": "tsx --env-file-if-exists=../.env --env-file-if-exists=.env",
+    "tool": "tsx --env-file-if-exists=../.env --env-file-if-exists=.env 1.tool/1.tool.mts",
+    "rag:book": "tsx --env-file-if-exists=../.env --env-file-if-exists=.env 4.rag-book/index.mts"
+  },
+  "dependencies": {
+    "@langchain/classic": "^1.0.57",
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.2.18",
+    "@langchain/mcp-adapters": "^2.0.1",
+    "@langchain/openai": "^1.6.2",
+    "@langchain/textsplitters": "^1.0.2",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/server": "^2.4.0",
+    "@zilliz/milvus2-sdk-node": "2.6",
+    "epub2": "^3.0.2",
+    "fast-xml-parser": "^5.11.2",
+    "html-to-text": "^10.0.1",
+    "jszip": "^3.10.2",
+    "openai": "^7.47.0",
+    "pdf-parse": "^1.1.4",
+    "zod": "^4.6.7",
+    "dotenv": "^18.0.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "@types/node": "^26.6.4",
+    "@types/html-to-text": "^9.0.4"
+  }
+}

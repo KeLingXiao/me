@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - stop后不调用scheduler</title>
+<h1>effect - stop后不调用scheduler</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    const s = reactive({
+      n: 1
+    });
+    let scheduled = 0;
+    const runner = effect(() => s.n, {
+      scheduler() {
+        scheduled++;
+      }
+    });
+    runner.effect.stop();
+    s.n++;
+    assert(scheduled === 0, "停止后不应再调度");
+    result.textContent = 'PASS：effect - stop后不调用scheduler';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

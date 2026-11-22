@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>watch - 新旧值与停止</title>
+<h1>watch - 新旧值与停止</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref(1);
+    let values, calls = 0;
+    const stop = watch(n, (v, o) => {
+      calls++;
+      values = [v, o];
+    });
+    assert(calls === 0, "\u9ED8\u8BA4\u4E0D\u7ACB\u5373\u6267\u884C");
+    n.value = 2;
+    assert(values[0] === 2 && values[1] === 1, "\u5E94\u4F20\u9012\u65B0\u65E7\u503C");
+    stop();
+    n.value = 3;
+    assert(calls === 1, "\u505C\u6B62\u540E\u4E0D\u5E94\u56DE\u8C03");
+    result.textContent = "PASS\uFF1Awatch - \u65B0\u65E7\u503C\u4E0E\u505C\u6B62";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

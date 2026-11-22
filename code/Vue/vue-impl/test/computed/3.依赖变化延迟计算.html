@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>computed - 依赖变化延迟计算</title>
+<h1>computed - 依赖变化延迟计算</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect, computed } = Reactivity;
+    const s = reactive({ n: 1 });
+    let calls = 0;
+    const value = computed(() => {
+      calls++;
+      return s.n * 2;
+    });
+    assert(value.value === 2, "首次读取应计算结果");
+    s.n = 2;
+    s.n = 3;
+    assert(calls === 1, "依赖变化时不应立即计算");
+    assert(value.value === 6 && calls === 2, "再次读取应使用最新依赖计算一次");
+    result.textContent = 'PASS：computed - 依赖变化延迟计算';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

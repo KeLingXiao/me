@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - 异常后恢复依赖上下文</title>
+<h1>effect - 异常后恢复依赖上下文</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    let caught = false;
+    try {
+      effect(() => {
+        throw new Error("预期异常");
+      });
+    } catch (error) {
+      caught = error.message === "预期异常";
+    } assert(caught, "回调异常应向外抛出");
+    assert(Reactivity.activeEffect === null, "异常后应恢复 activeEffect");
+    result.textContent = 'PASS：effect - 异常后恢复依赖上下文';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>computed - 链式计算属性</title>
+<h1>computed - 链式计算属性</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect, computed } = Reactivity;
+    const s = reactive({ n: 1 });
+    const first = computed(() => s.n * 2);
+    const second = computed(() => first.value + 1);
+    let valueResult;
+    effect(() => valueResult = second.value);
+    assert(valueResult === 3, "应支持计算属性依赖另一个计算属性");
+    s.n = 2;
+    assert(valueResult === 5, "依赖变化应沿计算属性链更新");
+    result.textContent = 'PASS：computed - 链式计算属性';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

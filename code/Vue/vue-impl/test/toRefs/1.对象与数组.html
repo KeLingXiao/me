@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>toRefs - 对象与数组</title>
+<h1>toRefs - 对象与数组</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const s = reactive({ n: 1 });
+    const { n } = toRefs(s);
+    n.value = 2;
+    assert(s.n === 2, "\u89E3\u6784\u540E\u5E94\u4FDD\u6301\u5173\u8054");
+    const a = toRefs(reactive([1, 2]));
+    assert(Array.isArray(a) && a[1].value === 2, "\u5E94\u4FDD\u7559\u6570\u7EC4\u5F62\u6001");
+    result.textContent = "PASS\uFF1AtoRefs - \u5BF9\u8C61\u4E0E\u6570\u7EC4";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

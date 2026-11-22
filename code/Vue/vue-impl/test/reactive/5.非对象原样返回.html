@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>reactive - 非对象原样返回</title>
+<h1>reactive - 非对象原样返回</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition) {
+    if (!condition) throw new Error('断言失败：reactive - 非对象原样返回');
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    for (const v of [null, undefined, 1, "a", true, Symbol(), 1n]) assert(reactive(v) === v);
+    result.textContent = 'PASS：reactive - 非对象原样返回';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

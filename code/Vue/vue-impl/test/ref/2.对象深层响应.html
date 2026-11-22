@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>ref - 对象深层响应</title>
+<h1>ref - 对象深层响应</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref({ nested: { n: 1 } });
+    let value;
+    effect(() => value = n.value.nested.n);
+    n.value.nested.n = 2;
+    assert(value === 2, "\u5D4C\u5957\u5C5E\u6027\u5E94\u54CD\u5E94\u66F4\u65B0");
+    n.value = { nested: { n: 3 } };
+    assert(value === 3, "\u66FF\u6362\u5BF9\u8C61\u5E94\u91CD\u65B0\u6536\u96C6\u4F9D\u8D56");
+    result.textContent = "PASS\uFF1Aref - \u5BF9\u8C61\u6DF1\u5C42\u54CD\u5E94";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>proxyRefs - 解包与赋值</title>
+<h1>proxyRefs - 解包与赋值</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref(1), target = { n };
+    const p = proxyRefs(target);
+    assert(p.n === 1, "\u8BFB\u53D6\u5E94\u81EA\u52A8\u89E3\u5305");
+    p.n = 2;
+    assert(n.value === 2, "\u666E\u901A\u503C\u5E94\u5199\u5165 value");
+    const next = ref(3);
+    p.n = next;
+    assert(target.n === next && p.n === 3, "\u65B0 ref \u5E94\u66FF\u6362\u65E7 ref");
+    result.textContent = "PASS\uFF1AproxyRefs - \u89E3\u5305\u4E0E\u8D4B\u503C";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

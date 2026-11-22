@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - scheduler接管更新</title>
+<h1>effect - scheduler接管更新</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    const s = reactive({
+      n: 1
+    });
+    let value, scheduled = 0;
+    effect(() => value = s.n, {
+      scheduler() {
+        scheduled++;
+      }
+    });
+    assert(value === 1, "首次应读取依赖");
+    s.n = 2;
+    assert(scheduled === 1 && value === 1, "更新时只应执行 scheduler");
+    result.textContent = 'PASS：effect - scheduler接管更新';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

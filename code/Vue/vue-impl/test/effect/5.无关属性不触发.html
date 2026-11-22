@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - 无关属性不触发</title>
+<h1>effect - 无关属性不触发</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition) {
+    if (!condition) throw new Error('断言失败：effect - 无关属性不触发');
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    const s = reactive({
+      a: 1, b: 1
+    });
+    let runs = 0;
+    effect(() => {
+      runs++;
+      s.a;
+    });
+    assert(runs === 1);
+    s.b++;
+    assert(runs === 1);
+    result.textContent = 'PASS：effect - 无关属性不触发';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

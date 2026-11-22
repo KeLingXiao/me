@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>toRef - 归一化</title>
+<h1>toRef - 归一化</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref(1);
+    assert(toRef(n) === n, "\u5DF2\u6709 ref \u5E94\u539F\u6837\u8FD4\u56DE");
+    assert(toRef(2).value === 2, "\u666E\u901A\u503C\u5E94\u8F6C\u4E3A ref");
+    const s = reactive({ n: 1 });
+    const getter = toRef(() => s.n);
+    s.n = 2;
+    assert(getter.value === 2, "getter \u5E94\u8BFB\u53D6\u6700\u65B0\u503C");
+    result.textContent = "PASS\uFF1AtoRef - \u5F52\u4E00\u5316";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

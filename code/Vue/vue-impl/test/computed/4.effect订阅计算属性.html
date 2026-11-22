@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>computed - effect订阅计算属性</title>
+<h1>computed - effect订阅计算属性</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+
+  try {
+    const { reactive, effect, computed } = Reactivity;
+    const s = reactive({ n: 1 });
+    const value = computed(() => s.n * 2);
+    let valueResult, calls = 0;
+    effect(() => {
+      calls++;
+      valueResult = value.value;
+    });
+    assert(valueResult === 2 && calls === 1, "effect 应读取初始计算结果");
+    s.n = 2;
+    assert(valueResult === 4 && calls === 2, "依赖变化应通知外层 effect");
+    result.textContent = 'PASS：computed - effect订阅计算属性';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

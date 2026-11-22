@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - 依赖变化重新执行</title>
+<h1>effect - 依赖变化重新执行</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition) {
+    if (!condition) throw new Error('断言失败：effect - 依赖变化重新执行');
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    const s = reactive({
+      n: 1
+    });
+    let value;
+    effect(() => value = s.n);
+    s.n = 2;
+    assert(value === 2);
+    result.textContent = 'PASS：effect - 依赖变化重新执行';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

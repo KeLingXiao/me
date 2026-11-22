@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>watchEffect - 自动收集与清理</title>
+<h1>watchEffect - 自动收集与清理</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref(1);
+    let value, cleanups = 0;
+    const stop = watchEffect((onCleanup) => {
+      value = n.value;
+      onCleanup(() => cleanups++);
+    });
+    assert(value === 1, "\u5E94\u7ACB\u5373\u6267\u884C");
+    n.value = 2;
+    assert(value === 2 && cleanups === 1, "\u66F4\u65B0\u524D\u5E94\u6E05\u7406");
+    stop();
+    n.value = 3;
+    assert(value === 2 && cleanups === 2, "\u505C\u6B62\u65F6\u5E94\u6E05\u7406\u5E76\u53D6\u6D88\u8BA2\u9605");
+    result.textContent = "PASS\uFF1AwatchEffect - \u81EA\u52A8\u6536\u96C6\u4E0E\u6E05\u7406";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

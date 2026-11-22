@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effect - 重复读取只订阅一次</title>
+<h1>effect - 重复读取只订阅一次</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById('result');
+  function assert(condition) {
+    if (!condition) throw new Error('断言失败：effect - 重复读取只订阅一次');
+  }
+
+  try {
+    const { reactive, effect } = Reactivity;
+    const s = reactive({
+      n: 1
+    });
+    let runs = 0;
+    effect(() => {
+      runs++;
+      s.n;
+      s.n;
+    });
+    s.n++;
+    assert(runs === 2);
+    result.textContent = 'PASS：effect - 重复读取只订阅一次';
+    result.style.color = 'green';
+  } catch (error) {
+    result.textContent = 'FAIL：' + error.message;
+    result.style.color = 'red';
+    console.error(error);
+  }
+</script>
+</html>

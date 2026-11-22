@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>effectScope - 统一停止</title>
+<h1>effectScope - 统一停止</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const n = ref(1);
+    let calls = 0, cleanups = 0;
+    const scope = effectScope();
+    const scopeResult = scope.run(() => {
+      effect(() => {
+        n.value;
+        calls++;
+      });
+      watchEffect((onCleanup) => {
+        n.value;
+        calls++;
+        onCleanup(() => cleanups++);
+      });
+      watch(n, () => calls++);
+      onScopeDispose(() => cleanups++);
+      return 42;
+    });
+    assert(scopeResult === 42, "run \u5E94\u8FD4\u56DE\u56DE\u8C03\u7ED3\u679C");
+    n.value = 2;
+    assert(calls === 5, "\u4F5C\u7528\u57DF\u5185\u8BA2\u9605\u5E94\u6B63\u5E38\u66F4\u65B0");
+    scope.stop();
+    scope.stop();
+    n.value = 3;
+    assert(calls === 5 && cleanups === 3, "\u5E94\u7EDF\u4E00\u505C\u6B62\u5E76\u6E05\u7406\u4E00\u6B21");
+    assert(scope.run(() => 1) === void 0, "\u505C\u6B62\u540E\u4E0D\u80FD\u8FD0\u884C");
+    result.textContent = "PASS\uFF1AeffectScope - \u7EDF\u4E00\u505C\u6B62";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

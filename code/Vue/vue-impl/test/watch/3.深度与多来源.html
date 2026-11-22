@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<title>watch - 深度与多来源</title>
+<h1>watch - 深度与多来源</h1>
+<pre id="result">运行中…</pre>
+<script src="../../packages/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const result = document.getElementById("result");
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  try {
+    const { reactive, effect, computed, ref, toRef, toRefs, proxyRefs, watch, watchEffect, effectScope, getCurrentScope, onScopeDispose } = Reactivity;
+    const s = reactive({ nested: { n: 1 } });
+    s.self = s;
+    let calls = 0;
+    watch(s, () => calls++);
+    s.nested.n = 2;
+    assert(calls === 1, "\u5E94\u652F\u6301\u6DF1\u5C42\u5C5E\u6027\u53CA\u5FAA\u73AF\u5F15\u7528");
+    const n = ref(1);
+    let values;
+    watch([n, () => s.nested.n], (v) => values = v);
+    n.value = 3;
+    assert(values[0] === 3 && values[1] === 2, "\u5E94\u652F\u6301\u591A\u4E2A\u6765\u6E90");
+    result.textContent = "PASS\uFF1Awatch - \u6DF1\u5EA6\u4E0E\u591A\u6765\u6E90";
+    result.style.color = "green";
+  } catch (error) {
+    result.textContent = "FAIL\uFF1A" + error.message;
+    result.style.color = "red";
+    console.error(error);
+  }
+</script>
+</html>

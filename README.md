@@ -30,37 +30,37 @@ src="https://capsule-render.vercel.app/api?type=waving&color=0:fdf2f8,50:e0e7ff,
   <tr>
     <td align="center" width="200">
       <b>🎀 前端</b><br/><br/>
-      <a href="./前端/html-css-js-ts">HTML / CSS / JS / TS</a><br/>
-      <a href="./前端/前端框架">Vue / React</a><br/>
-      <a href="./前端/工程化">工程化</a><br/>
-      <a href="./前端/浏览器">浏览器</a>
+      <a href="开发技术/前端/资源">HTML / CSS / JS / TS</a><br/>
+      <a href="开发技术/前端/框架">Vue / React</a><br/>
+      <a href="开发技术/前端/工程化">工程化</a><br/>
+      <a href="开发技术/前端/浏览器">浏览器</a>
     </td>
     <td align="center" width="200">
       <b>🌿 后端</b><br/><br/>
-      <a href="./后端/NodeJS及生态">Node.js 及生态</a><br/>
-      <a href="./后端/数据库/MySQL">MySQL</a><br/>
-      <a href="./后端/数据库/Redis">Redis</a><br/>
-      <a href="./后端/消息队列">消息队列</a><br/>
-      <a href="./后端/Docker">Docker</a>
+      <a href="开发技术/后端/NodeJS及生态">Node.js 及生态</a><br/>
+      <a href="开发技术/数据库/MySQL">MySQL</a><br/>
+      <a href="开发技术/数据库/Redis">Redis</a><br/>
+      <a href="开发技术/后端/消息队列">消息队列</a><br/>
+      <a href="工程能力/部署与交付/Docker">Docker</a>
     </td>
     <td align="center" width="200">
       <b>☁️ 基础素养</b><br/><br/>
-      <a href="./网络">网络</a><br/>
-      <a href="./操作系统">操作系统 / Linux</a><br/>
-      <a href="./数据结构与算法">数据结构与算法</a>
+      <a href="计算机基础/计算机网络">网络</a><br/>
+      <a href="计算机基础/操作系统">操作系统 / Linux</a><br/>
+      <a href="计算机基础/数据结构与算法">数据结构与算法</a>
     </td>
   </tr>
   <tr>
     <td align="center" width="200">
       <b>🧁 工程实践</b><br/><br/>
-      <a href="./工程实践/系统设计">系统设计 / 架构设计</a><br/>
-      <a href="./工程实践/设计模式">设计模式</a><br/>
-      <a href="./工程实践/解决方案">解决方案</a>
+      <a href="工程能力/系统设计">系统设计 / 架构设计</a><br/>
+      <a href="工程能力/设计模式">设计模式</a><br/>
+      <a href="工程能力/项目实践">解决方案</a>
     </td>
     <td align="center" width="200">
       <b>🫧 AI</b><br/><br/>
-      <a href="./AIAgent">AI Agent / LLM / RAG</a>
-      <a href="./AIAgent/VibeCoding/">VibeCode</a>
+      <a href="AI应用">AI Agent / LLM / RAG</a>
+      <a href="AI应用/VibeCoding">VibeCode</a>
     </td>
   </tr>
 </table>
@@ -85,27 +85,19 @@ src="https://capsule-render.vercel.app/api?type=waving&color=0:fdf2f8,50:e0e7ff,
 
 <br/>
 
-## 🎁 精选项目
+## 我的项目
 
-<br/>
-
-<table align="center">
-  <tr>
-    <td width="620">
-      <h3 align="center">🖼️ <a href="https://github.com/Like-Su/ImageStack">ImageStack</a></h3>
-      <p align="center">现代化图床系统，支持预签名上传、对象存储、虚拟列表与上传任务队列。</p>
-      <p align="center">
-        <img src="https://img.shields.io/badge/Vue_3-e0f2fe?style=flat-square&logoColor=6b7280&color=e0f2fe" />
-        <img src="https://img.shields.io/badge/NestJS-fce7f3?style=flat-square&color=fce7f3" />
-        <img src="https://img.shields.io/badge/Prisma-ede9fe?style=flat-square&color=ede9fe" />
-        <img src="https://img.shields.io/badge/Redis-fee2e2?style=flat-square&color=fee2e2" />
-        <img src="https://img.shields.io/badge/MinIO-dcfce7?style=flat-square&color=dcfce7" />
-      </p>
-    </td>
-  </tr>
-</table>
-
-<br/>
+<article class="project-entry">
+  <h3><a href="https://github.com/Like-Su/ImageStack">ImageStack</a></h3>
+  <p>现代化图床系统，支持预签名上传、对象存储、虚拟列表与上传任务队列。</p>
+  <div class="project-tags" aria-label="项目技术栈">
+    <span>Vue 3</span>
+    <span>NestJS</span>
+    <span>Prisma</span>
+    <span>Redis</span>
+    <span>MinIO</span>
+  </div>
+</article>
 
 ## 🍃 GitHub
 

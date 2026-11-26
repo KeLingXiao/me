@@ -34,7 +34,7 @@ function prepareMarkdown(content: string, source: string) {
         if (fs.existsSync(repaired) && repaired.startsWith(root)) {
           return `${image}[${label}](../${href})`
         }
-        if (!image) return `${label}（链接待补充）`
+        if (!image || /\.md(?:#.*)?$/i.test(href)) return `${label}（链接待补充）`
       }
       return match
     }).replace(/<a\b([^>]*?)href="([^"#]+)"([^>]*)>([\s\S]*?)<\/a>/g, (match, before, href, after, body) => {

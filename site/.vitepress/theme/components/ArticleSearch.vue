@@ -28,7 +28,7 @@ async function toggle() {
 function close() { open.value = false; clearTimeout(timer); query.value = ''; clear(); trigger.value?.focus() }
 function jump(delta: number) {
   if (!ranges.length) return
-  current.value = ((current.value - 1 + delta + ranges.length) % ranges.length) + 1
+  current.value = current.value === 0 ? (delta < 0 ? ranges.length : 1) : ((current.value - 1 + delta + ranges.length) % ranges.length) + 1
   const range = ranges[current.value - 1]
   const Highlight = (window as any).Highlight
   if (Highlight && registry()) registry()!.set('article-current', new Highlight(range))
@@ -72,7 +72,7 @@ function search() {
   count.value = ranges.length
   const Highlight = (window as any).Highlight
   if (Highlight && registry()) registry()!.set('article-find', new Highlight(...ranges))
-  if (ranges.length) jump(1)
+  // Keep the viewport stable while typing; Enter selects the first match.
 }
 function keyboard(event: KeyboardEvent) {
   if (event.altKey && event.key.toLowerCase() === 'f') { event.preventDefault(); toggle() }
@@ -94,6 +94,6 @@ onUnmounted(() => { clearTimeout(timer); clear(); window.removeEventListener('ke
       <button :disabled="!count" aria-label="下一个匹配" title="下一个（Enter）" @click="jump(1)">↓</button>
       <button aria-label="关闭文章搜索" title="关闭（Esc）" @click="close">×</button>
     </div>
-    <small>仅搜索当前文章 · Enter 下一处 · Esc 关闭</small>
+    <small>仅搜索当前文章 · Enter 跳转匹配 · 搜索全站请用顶部“搜索本站”</small>
   </section>
 </template>

@@ -113,8 +113,6 @@
 .reader-library p { margin:10px 0; font-size:12px; line-height:1.8; color:var(--vp-c-text-3); }
 .reader-library a { display:block; padding:7px 0; font-size:13px; line-height:1.6; overflow-wrap:anywhere; }
 .reader-library a:hover { color:var(--vp-c-brand-1); }
-.reader-library-title { display:flex; justify-content:space-between; align-items:center; margin-top:24px; }
-.reader-library-title button { padding:4px; font-size:11px; color:var(--vp-c-text-3); }
 .reader-library small { display:block; margin-top:24px; font-size:10px; color:var(--vp-c-text-3); }
 .reader-progress { position:fixed; z-index:100; left:0; top:0; height:2px; background:var(--vp-c-brand-1); pointer-events:none; }
 .reader-top { position:fixed; z-index:30; right:22px; bottom:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; width:46px; height:54px; border:1px solid var(--vp-c-border); background:var(--vp-c-bg-elv); color:var(--vp-c-brand-1); font-size:21px; border-radius:3px; }
@@ -232,3 +230,55 @@
 .project-tags { display:flex; flex-wrap:wrap; gap:8px; }
 .project-tags > span { display:inline-flex; align-items:center; padding:4px 10px; border:1px solid var(--vp-c-divider); border-radius:5px; background:var(--vp-c-bg-alt); color:var(--vp-c-text-2); font:12px/20px var(--vp-font-family-base); }
 @media(max-width:639px) { .vp-doc .project-entry { padding:20px; } }
+
+/* 继续阅读与本地草稿反馈 */
+.reader-resume { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:12px; margin-bottom:16px; background:var(--vp-c-brand-soft); border-radius:6px; font-size:14px; }
+.reader-resume button,.lab-draft button { padding:8px 12px; color:var(--vp-c-brand-1); text-decoration:underline; text-underline-offset:3px; }
+.lab-draft { margin:8px 18px!important; font-size:12px; color:var(--vp-c-text-2); }
+@media (pointer:coarse), (max-width:639px) {
+  .reader-toolbar button,.article-search-row button,.reader-resume button,.lab-actions button,.lab-draft button,.lab-languages button { min-width:44px; min-height:44px; }
+  .reader-library a { min-height:44px; display:flex; align-items:center; }
+  .article-search input { min-height:44px; font-size:16px; }
+  .article-search-row { flex-wrap:wrap; }
+  .article-search input { flex-basis:140px; }
+}
+
+/* 桌面目录折叠：正文与按钮随侧栏一同过渡。手机保留原生抽屉。 */
+.sidebar-toggle { display:none; }
+@media(min-width:960px) {
+  .reader-shell .VPSidebar { transition:transform .24s ease,opacity .24s ease,visibility .24s; }
+  .reader-shell .VPContent.has-sidebar { transition:padding-left .24s ease; }
+  .sidebar-toggle { position:fixed; z-index:40; left:calc(var(--vp-sidebar-width) - 22px); top:calc(var(--vp-nav-height) + 14px); display:grid; place-items:center; width:44px; height:44px; border:1px solid var(--vp-c-divider); border-radius:12px; background:var(--vp-c-bg-elv); color:var(--vp-c-text-2); box-shadow:0 3px 12px #0000000a; transition:left .24s ease,background-color .18s,color .18s,box-shadow .18s; }
+  .sidebar-toggle:hover { color:var(--vp-c-brand-1); background:var(--vp-c-bg-soft); box-shadow:0 4px 16px #00000014; }
+  .sidebar-toggle:active { scale:.96; }
+  .sidebar-collapsed .VPSidebar { transform:translateX(-100%); opacity:0; visibility:hidden; pointer-events:none; }
+  .sidebar-collapsed .VPContent.has-sidebar { padding-left:0; }
+  .sidebar-collapsed .sidebar-toggle { left:12px; }
+}
+@media(min-width:1440px) {
+  .sidebar-toggle { left:calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) - 22px); }
+}
+.VPSidebar { scrollbar-color:var(--sidebar-scroll-thumb) transparent; }
+.VPSidebar::-webkit-scrollbar { width:8px; }
+.VPSidebar::-webkit-scrollbar-thumb { border:2px solid transparent; background-clip:padding-box; border-radius:999px; }
+.VPSidebar::-webkit-scrollbar-thumb:hover { background-color:var(--sidebar-scroll-thumb-active); }
+.VPSidebarItem .link { transition:background-color .18s ease,color .18s ease; }
+@media(prefers-reduced-motion:reduce) {
+  .reader-shell .VPSidebar,.reader-shell .VPContent.has-sidebar,.sidebar-toggle { transition:none!important; }
+  .sidebar-toggle:active { scale:1; }
+}
+
+/* 折叠操作融入导航栏，不再覆盖目录边界。 */
+@media(min-width:960px) {
+  .reader-shell .sidebar-toggle,.reader-shell.sidebar-collapsed .sidebar-toggle { position:static; flex-shrink:0; margin-right:12px; width:36px; height:36px; border:0; border-radius:6px; box-shadow:none; background:transparent; transition:background-color .18s,color .18s; }
+}
+.vp-doc mark { padding:.08em .25em; border-radius:3px; color:inherit; background:#fff0ac; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.dark .vp-doc mark { background:#665829; color:#fff4c8; }
+@media(forced-colors:active) { .vp-doc mark { background:Highlight; color:HighlightText; } }
+
+/* 收起侧栏后标题区不再有侧栏底色兜底，整个导航栏必须保持不透明。 */
+@media(min-width:960px) {
+  .reader-shell .VPNavBar:not(.home) { background-color:var(--vp-c-bg); }
+  .reader-shell .VPContent { padding-top:var(--vp-nav-height); }
+  .reader-shell .VPNavBar .content-body { background-color:var(--vp-c-bg); }
+}

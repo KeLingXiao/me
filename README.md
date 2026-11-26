@@ -124,3 +124,5 @@ src="https://capsule-render.vercel.app/api?type=waving&color=0:ecfeff,50:e0e7ff,
 />
 
 </div>
+
+<p>纵使前路万重山，亦怀凌云万丈心。</p>

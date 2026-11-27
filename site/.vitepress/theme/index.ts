@@ -1,10 +1,11 @@
 import DefaultTheme from 'vitepress/theme'
 import Layout from './Layout.vue'
 import CodeRunner from './components/CodeRunner.vue'
+import KnowledgeGraph from './components/KnowledgeGraph.vue'
 import './style.css'
 
 export default {
   extends: DefaultTheme,
   Layout,
-  enhanceApp({ app }) { app.component('CodeRunner', CodeRunner) }
+  enhanceApp({ app }) { app.component('CodeRunner', CodeRunner); app.component('KnowledgeGraph', KnowledgeGraph) }
 }

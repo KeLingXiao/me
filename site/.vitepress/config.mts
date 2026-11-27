@@ -55,6 +55,7 @@ export default defineConfig({
     logo: { src: '/cs-pass.png', alt: 'CS 通关：知识阶梯与通关之门' },
     nav: [
       { text: '首页', link: '/' },
+      { text: '知识图谱', link: '/graph' },
       { text: '学习路线', link: '/notes/路线' },
       { text: '学习主题', items: topicNavigation }
     ],

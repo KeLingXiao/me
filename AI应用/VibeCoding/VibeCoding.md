@@ -29,7 +29,7 @@
 这里我们来举一些例子 来学习如何进行提问!
 对于非优质的 Prompt 我们需要花费更多的 Token 让其进行思考输出, 而 优质的 Prompt 就会减少 思考时间 与 Token 消耗, 因为对于非优质的 Prompt 模型需要考虑的问题会更多 所以花费的 Token 数量会较多
 
-这里我有提供 [DESIGN.md](./prompt/1.design.md) 供你查看, 重点还是需要看结构 和 设计方案
+这里我有提供 [DESIGN.md](../../code/prompt/1.design.md) 供你查看, 重点还是需要看结构 和 设计方案
 
 ```
 非优质 Prompt example

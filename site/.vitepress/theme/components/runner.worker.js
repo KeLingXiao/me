@@ -20,7 +20,19 @@ self.onmessage = async ({ data }) => {
     const AsyncFunction = Object.getPrototypeOf(
       async function () {},
     ).constructor;
-    const result = await new AsyncFunction("input", "console", data.code)(
+    let executable = data.code;
+    if (data.language === 'typescript') {
+      const module = await import('typescript/lib/typescript.js');
+      const ts = module.default || module;
+      const result = ts.transpileModule(executable, {
+        compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+        reportDiagnostics: true,
+      });
+      const errors = result.diagnostics?.filter(item => item.category === ts.DiagnosticCategory.Error) || [];
+      if (errors.length) throw new SyntaxError(errors.map(item => ts.flattenDiagnosticMessageText(item.messageText, '\n')).join('\n'));
+      executable = result.outputText;
+    }
+    const result = await new AsyncFunction("input", "console", executable)(
       input,
       { log, info: log, warn: log, error: log },
     );

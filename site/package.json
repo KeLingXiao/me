@@ -8,7 +8,8 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
     "docs:check": "node --experimental-strip-types scripts/check-content.mjs",
-    "docs:verify": "node scripts/check-site.mjs"
+    "docs:verify": "node scripts/check-site.mjs",
+    "docs:check-references": "node --experimental-strip-types scripts/check-reference-links.mjs"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "packageManager": "pnpm@10.34.5",
   "dependencies": {
     "shiki": "2.5.0",
+    "typescript": "5.9.3",
     "vitepress": "^1.6.4"
   },
   "devDependencies": {

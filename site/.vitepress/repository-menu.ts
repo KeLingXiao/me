@@ -10,6 +10,22 @@ const excluded = new Set(['.github', '.pnpm-store', '.vscode', '.vsocde', '_temp
 const collator = new Intl.Collator('zh-CN', { numeric: true })
 const asset = /\.(?:md|markdown|png|jpe?g|gif|svg|webp|avif|ico|pdf|mp4|webm|mp3|wav)$/i
 const generated = new Set<string>()
+const codeReferences: Record<string, { path: string; name: string; language: string; source: string }> = {}
+function codeReference(source: string, relative: string, href: string, article: string) {
+  const extension = path.extname(source).slice(1)
+  const languages: Record<string, string> = { ts: 'typescript', js: 'javascript', mts: 'typescript', mjs: 'javascript', vue: 'vue', json: 'json', css: 'css', html: 'html', py: 'python', txt: 'text' }
+  if (!languages[extension] || !fs.existsSync(source) || !fs.statSync(source).isFile()) return null
+  const realSource = fs.realpathSync(source)
+  if (!realSource.startsWith(path.join(root, 'code') + path.sep)) return null
+  const key = relative.split(path.sep).join('/')
+  codeReferences[key] = { path: key, name: path.basename(source), language: languages[extension], source: fs.readFileSync(source, 'utf8') }
+  const parameters = new URLSearchParams({ code: key })
+  const original = new URL(href, 'https://repository.invalid/')
+  if (original.searchParams.get('run') === '0') parameters.set('run', '0')
+  if (original.hash) parameters.set('symbol', decodeURIComponent(original.hash.slice(1)))
+  const articleUrl = url(path.relative(root, article))
+  return (articleUrl === '/' ? '/' : articleUrl + '.html') + '?' + parameters.toString()
+}
 const cleanTitle = (name: string) => name.replace(/^\d+[.、_\s-]*/, '')
 
 function prepareMarkdown(content: string, source: string) {
@@ -18,9 +34,21 @@ function prepareMarkdown(content: string, source: string) {
     .map((part, index) => index % 2 ? part : part.replace(/(!?)\[([^\]]*)\]\(([^\s)]+)\)/g, (match, image, label, href) => {
       if (href === 'url' || href === './url') return `${label}（待补充）`
       if (/^(?:[a-z]+:|#|\/)/i.test(href)) return match
-      const resolved = path.resolve(path.dirname(source), decodeURI(href.split('#')[0]))
+      const resolved = path.resolve(path.dirname(source), decodeURI(href.split(/[?#]/)[0]))
       const relative = path.relative(root, resolved)
       if (relative === 'code' || relative.startsWith('code' + path.sep)) {
+        if (/\.(md|markdown)$/i.test(resolved) && fs.existsSync(resolved) && fs.statSync(resolved).isFile()) {
+          const target = path.join(destination, relative)
+          if (!generated.has(target)) {
+            generated.add(target)
+            fs.mkdirSync(path.dirname(target), { recursive: true })
+            const document = prepareMarkdown(fs.readFileSync(resolved, 'utf8'), resolved)
+            if (!fs.existsSync(target) || fs.readFileSync(target, 'utf8') !== document) fs.writeFileSync(target, document)
+          }
+          return `[${label || path.basename(resolved)}](${url(relative)}${href.includes('#') ? '#' + href.split('#')[1] : ''})`
+        }
+        const reference = codeReference(resolved, relative, href, source)
+        if (reference) return `[${label || path.basename(resolved)}](${reference})`
         return `[${label || path.basename(resolved)}](https://github.com/Like-Su/me/blob/main/${relative.split(path.sep).map(encodeURIComponent).join('/')})`
       }
       if (fs.existsSync(resolved) && fs.statSync(resolved).isDirectory()) {
@@ -42,11 +70,15 @@ function prepareMarkdown(content: string, source: string) {
       const converted = prepareMarkdown(`[链接](${href})`, source)
       let target = converted.match(/^\[链接\]\((.*)\)$/)?.[1]
       // 原始 HTML 不经过 VitePress 的 Markdown 链接处理，显式补齐部署路径。
-      if (target?.startsWith('/notes/')) target = '/me' + target + '.html'
+      if (target?.startsWith('/notes/')) {
+        const parsed = new URL(target, 'https://site.invalid/')
+        target = '/me' + parsed.pathname + (parsed.pathname.endsWith('.html') ? '' : '.html') + parsed.search + parsed.hash
+      }
       else if (target && !/^[a-z]+:/i.test(target) && /\.md$/i.test(target)) {
         target = '/me' + url(path.relative(root, path.resolve(path.dirname(source), decodeURI(target)))) + '.html'
       }
-      return target ? `<a ${before}href="${target}"${after}>${body}</a>` : `<span>${body}（链接待补充）</span>`
+      const code = target ? new URL(target, 'https://site.invalid/').searchParams.get('code') : null
+      return target ? `<a ${before}href="${target.replace(/&/g, '&amp;')}"${code ? ' class="vp-raw" data-code-source="' + code.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"' : ''}${after}>${body}</a>` : `<span>${body}（链接待补充）</span>`
     })).join('')
 }
 
@@ -89,6 +121,11 @@ function scan(directory: string): DefaultTheme.SidebarItem[] {
 }
 
 export const repositoryMenu = scan(root)
+// Publish referenced source data only; source files do not become pages.
+const manifest = path.join(root, 'site', '.vitepress', 'generated', 'code-references.json')
+fs.mkdirSync(path.dirname(manifest), { recursive: true })
+const manifestContent = JSON.stringify(codeReferences)
+if (!fs.existsSync(manifest) || fs.readFileSync(manifest, 'utf8') !== manifestContent) fs.writeFileSync(manifest, manifestContent)
 
 // 仅清理此模块生成的 notes 树；拒绝越界路径与符号链接。
 function removeStale(directory: string) {

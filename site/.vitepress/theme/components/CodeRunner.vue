@@ -2,9 +2,10 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vitepress'
 import HighlightedEditor from './HighlightedEditor.vue'
-type Language = 'javascript' | 'python'
-const props = withDefaults(defineProps<{ code?: string; input?: string; title?: string; sources?: Partial<Record<Language, string>>; cases?: { name: string; input: string; expected: string }[] }>(), { code: '', input: '{}', title: '算法实验区' })
-const available = computed(() => (Object.keys(props.sources || { javascript: props.code }) as Language[]).filter(lang => ['javascript', 'python'].includes(lang)))
+import { createSandboxWorker } from './sandbox'
+type Language = 'javascript' | 'typescript' | 'python'
+const props = withDefaults(defineProps<{ code?: string; input?: string; title?: string; embedded?: boolean; sources?: Partial<Record<Language, string>>; cases?: { name: string; input: string; expected: string }[] }>(), { code: '', input: '{}', title: '算法实验区' })
+const available = computed(() => (Object.keys(props.sources || { javascript: props.code }) as Language[]).filter(lang => ['javascript', 'typescript', 'python'].includes(lang)))
 const language = ref<Language>(available.value[0] || 'javascript')
 const drafts = ref<Partial<Record<Language, string>>>({ ...props.sources, ...(!props.sources ? { javascript: props.code } : {}) })
 const code = computed({ get: () => drafts.value[language.value] || '', set: value => { drafts.value[language.value] = value } })
@@ -71,7 +72,7 @@ async function testAll() {
     }
   } finally { input.value = original; testing.value = false }
 }
-let worker: Worker | undefined
+let worker: ReturnType<typeof createSandboxWorker> | undefined
 let timer: ReturnType<typeof setTimeout> | undefined
 function cleanup() { worker?.terminate(); worker = undefined; clearTimeout(timer); running.value = false; settle?.(null); settle = undefined }
 function stop() { cancelled = true; cleanup(); status.value = '已停止'; output.value.push('已停止运行') }
@@ -80,21 +81,19 @@ function executionTimer() {
   clearTimeout(timer)
   timer = setTimeout(() => { cleanup(); status.value = '已超时'; output.value.push('执行超过 3 秒，已终止。') }, 3000)
 }
-function run() {
+async function run() {
   cleanup()
   output.value = []
   logs = []
   try {
     JSON.parse(input.value)
-    const current = language.value === 'python'
-      ? new Worker(new URL('./python.worker.js', import.meta.url), { type: 'module' })
-      : new Worker(new URL('./runner.worker.js', import.meta.url), { type: 'module' })
+    if (language.value === 'python') throw new Error('Python 暂仅支持编辑，隔离执行尚未开放。')
+    const current = createSandboxWorker()
     worker = current
     running.value = true
-    status.value = language.value === 'python' ? '加载 Python…' : '运行中'
+    status.value = language.value === 'typescript' ? '加载编译器…' : '准备隔离环境…'
     current.onmessage = ({ data }) => {
       if (worker !== current) return
-      if (data.type === 'loading') { status.value = '加载 Python…'; output.value.push(data.text); return }
       if (data.type === 'ready') { status.value = '运行中'; executionTimer(); return }
       output.value.push(String(data.text))
       if (data.type === 'log') logs.push(String(data.text))
@@ -102,29 +101,46 @@ function run() {
       if (data.type === 'done' || data.type === 'error') { status.value = data.type === 'done' ? '已完成' : '执行失败'; cleanup() }
     }
     current.onerror = event => { if (worker !== current) return; output.value.push(`运行错误：${event.message}`); status.value = '执行失败'; cleanup() }
-    if (language.value === 'python') {
-      timer = setTimeout(() => { cleanup(); status.value = '加载失败'; output.value.push('Python 运行时加载超过 90 秒，请检查网络后重试。') }, 90000)
-    } else executionTimer()
-    current.postMessage({ code: code.value, input: input.value })
-  } catch (error) { output.value.push(`无法运行：${error instanceof Error ? error.message : String(error)}`); status.value = '执行失败'; cleanup() }
+    // Preparing the sandbox/compiler is separate from the execution budget.
+    // The sandbox emits ready only when it submits code to its worker.
+    timer = setTimeout(() => { cleanup(); status.value = '加载失败'; output.value.push('运行环境准备超过 30 秒，请稍后重试。') }, 30000)
+    let executable = code.value
+    if (language.value === 'typescript') {
+      const module = await import('typescript/lib/typescript.js')
+      if (worker !== current) return
+      const ts = module.default || module
+      const compiled = ts.transpileModule(executable, {
+        compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None }, reportDiagnostics: true
+      })
+      const errors = compiled.diagnostics?.filter(item => item.category === ts.DiagnosticCategory.Error) || []
+      if (errors.length) throw new SyntaxError(errors.map(item => ts.flattenDiagnosticMessageText(item.messageText, '\n')).join('\n'))
+      executable = compiled.outputText
+    }
+    current.postMessage({ code: executable, input: input.value })
+  } catch (error) { cleanup(); output.value.push(`无法运行：${error instanceof Error ? error.message : String(error)}`); status.value = '执行失败' }
 }
 watch(language, () => { cleanup(); output.value = []; results.value = []; status.value = '就绪' })
 watch(code, () => { results.value = []; copyStatus.value = '复制代码' })
 onUnmounted(() => { clearTimeout(undoTimer); saveDraft(); cancelled = true; cleanup() })
+defineExpose({ getCode: () => code.value, reset })
 </script>
 
 <template>
   <section class="code-lab" :aria-label="title">
-    <header><strong>{{ title }}</strong><span role="status">{{ status }} · 执行限时 3 秒</span></header>
-    <div class="lab-languages" aria-label="运行语言">
-      <button v-for="lang in available" :key="lang" :disabled="testing" :aria-pressed="language === lang" @click="language = lang">{{ lang === 'python' ? 'Python' : 'JavaScript' }}</button>
+    <header><strong v-if="!embedded">{{ title }}</strong><span role="status">{{ status }} · 执行限时 3 秒</span></header>
+    <div v-if="!embedded || available.length > 1" class="lab-languages" aria-label="运行语言">
+      <button v-for="lang in available" :key="lang" :disabled="testing" :aria-pressed="language === lang" @click="language = lang">{{ lang === 'python' ? 'Python' : lang === 'typescript' ? 'TypeScript' : 'JavaScript' }}</button>
     </div>
-    <div class="lab-code-field"><p class="lab-hint">{{ language === 'python' ? '使用 data 读取 JSON 输入，print() 输出结果' : '使用 input 读取 JSON 输入，console.log() 输出结果' }} · Tab 缩进 · Ctrl/⌘ + Enter 运行</p><HighlightedEditor v-model="code" :language="language" :disabled="running || testing" @run="!running && !testing && run()" /></div>
-    <label><span>输入数据 · JSON</span><textarea v-model="input" class="lab-input" aria-label="JSON 输入数据" spellcheck="false" :disabled="running || testing" /></label>
+    <div class="lab-code-field"><p class="lab-hint">{{ language === 'python' ? '使用 data 读取 JSON 输入，print() 输出结果' : '使用 input 读取 JSON 输入，console.log() 输出结果' }} · Tab 缩进 · Ctrl/⌘ + Enter 运行</p><HighlightedEditor v-model="code" :language="language" :disabled="running || testing" @run="language !== 'python' && !running && !testing && run()" /></div>
+    <details v-if="embedded" class="lab-input-details" :open="props.input !== '{}'">
+      <summary>输入数据 <span>JSON · 可选</span></summary>
+      <label><span class="sr-only">输入数据 · JSON</span><textarea v-model="input" class="lab-input" aria-label="JSON 输入数据" spellcheck="false" :disabled="running || testing" /></label>
+    </details>
+    <label v-else><span>输入数据 · JSON</span><textarea v-model="input" class="lab-input" aria-label="JSON 输入数据" spellcheck="false" :disabled="running || testing" /></label>
     <p class="lab-draft" role="status">{{ draftNotice }} <button v-if="undo" :disabled="running || testing" @click="undoReset">撤销恢复示例（10 秒内）</button></p>
-    <div class="lab-actions"><button :disabled="running || testing" @click="run()">{{ running ? '运行中…' : '▶ 运行代码' }}</button><button v-if="running || testing" @click="stop">停止</button><button :disabled="testing" @click="reset">恢复当前语言示例</button><button @click="copyCode">{{ copyStatus }}</button><button v-if="cases?.length" :disabled="running || testing" @click="testAll">{{ testing ? '测试中…' : `运行全部 ${cases.length} 组用例` }}</button></div>
+    <div class="lab-actions"><button :disabled="running || testing || language === 'python'" @click="run()">{{ running ? '运行中…' : '▶ 运行代码' }}</button><button v-if="running || testing" @click="stop">停止</button><button v-if="!embedded" :disabled="testing" @click="reset">恢复当前语言示例</button><button v-if="!embedded" @click="copyCode">{{ copyStatus }}</button><button v-if="cases?.length" :disabled="running || testing || language === 'python'" @click="testAll">{{ testing ? '测试中…' : `运行全部 ${cases.length} 组用例` }}</button></div>
     <div v-if="results.length" class="lab-results" aria-live="polite"><p v-for="result in results" :key="result.name"><strong>{{ result.passed ? '✓ 通过' : '✗ 未通过' }} · {{ result.name }}</strong><span>预期：{{ result.expected }} / 实际：{{ result.actual }}</span></p></div>
     <div class="lab-output" role="log" aria-live="polite" aria-label="运行输出"><pre>{{ output.length ? output.join('\n') : '运行结果将显示在这里。' }}</pre></div>
-    <footer>本地执行，最多 100 条日志。Python 首次运行需从 CDN 下载运行时（加载最多等待 90 秒），执行计时从加载完成后开始。仅运行你信任的代码。</footer>
+    <footer>隔离执行：禁止联网与访问本站数据，最多 100 条日志，执行限时 3 秒。Python 暂仅支持编辑。</footer>
   </section>
 </template>

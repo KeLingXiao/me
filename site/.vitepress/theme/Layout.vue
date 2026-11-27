@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
 import ArticleSearch from './components/ArticleSearch.vue'
+import LinkPreview from './components/LinkPreview.vue'
+import CodeReference from './components/CodeReference.vue'
 import { useData, useRoute, useRouter } from 'vitepress'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -106,11 +108,11 @@ onUnmounted(() => {
         </button>
       </template>
       <template #doc-before>
-        <div v-if="resume" class="reader-resume" role="status"><span>上次读到这里，继续学习？</span><button @click="continueReading">继续阅读</button><button @click="startReading">从头开始</button></div>
+        <div v-if="resume" class="reader-resume" role="status"><span>已保存阅读位置</span><button @click="continueReading">继续阅读</button><button @click="startReading">从头开始</button></div>
         <div class="reader-meta"><span>学习笔记</span><span>约 {{ minutes }} 分钟阅读</span></div>
         <div class="reader-toolbar" aria-label="阅读工具">
           <div class="reader-type"><button aria-label="缩小字号" :disabled="size <= 14" @click="setSize(-1)">A−</button><span>{{ size }}</span><button aria-label="放大字号" :disabled="size >= 22" @click="setSize(1)">A+</button></div>
-          <button :aria-pressed="saved" @click="toggleBookmark">{{ saved ? '★ 已收藏' : '☆ 收藏本文' }}</button>
+          <button :aria-pressed="saved" @click="toggleBookmark">{{ saved ? '已收藏' : '收藏' }}</button>
           <ArticleSearch />
           <button :aria-pressed="focus" @click="focus = !focus">{{ focus ? '退出专注 · Esc' : '专注阅读' }}</button>
         </div>
@@ -118,12 +120,14 @@ onUnmounted(() => {
       <template #sidebar-nav-after>
         <section class="reader-library" aria-label="个人书架">
           <h2>我的收藏 <span>{{ bookmarks.length }}</span></h2>
-          <p v-if="!bookmarks.length">文章上方点击 ☆，留待复习。</p>
+          <p v-if="!bookmarks.length">暂无收藏。</p>
           <a v-for="item in bookmarks" :key="item.path" :href="item.path" @click.prevent="router.go(item.path)">{{ item.title }}</a>
           <small>收藏仅保存在当前浏览器</small>
         </section>
       </template>
       <template #layout-bottom>
+        <LinkPreview />
+        <CodeReference />
 
         <button v-if="progress > 10" class="reader-top" aria-label="返回顶部" @click="top">↑ <span>{{ progress }}%</span></button>
         <div class="reader-progress" aria-hidden="true" :style="{ width: `${progress}%` }" />

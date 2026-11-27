@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
-const props = defineProps<{ modelValue: string; language: 'javascript' | 'python'; disabled?: boolean }>()
+const props = defineProps<{ modelValue: string; language: string; disabled?: boolean }>()
 const emit = defineEmits<{ 'update:modelValue': [value: string]; run: [] }>()
 const lineCount = computed(() => props.modelValue.split('\n').length)
 const scrollTop = ref(0)
